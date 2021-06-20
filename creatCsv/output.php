@@ -18,10 +18,27 @@ class outputCsv
         $spreadsheet_id = $spreadsheet->creat();
         $client = $spreadsheet->sheetConfig();
 
+        $spreadsheet_service = new \Google_Service_Sheets($client);
+
+        //シートを追加
+        for ($i = 2; $i < 4; $i++) {
+            $body = new \Google_Service_Sheets_BatchUpdateSpreadsheetRequest([
+                'requests' => [
+                    'addSheet' => [
+                        'properties' => [
+                            'title' => 'Sheet' . $i
+                        ]
+                    ]
+                ]
+            ]);
+            $response = $spreadsheet_service->spreadsheets->batchUpdate($spreadsheet_id, $body);
+            $response->getReplies()[0]
+                ->getAddSheet()
+                ->getProperties();
+        }
         //シート書き込み
         for ($i = 1; $i < 4; $i++) {
             $values = $this->toArrayCsvData($i);
-            $spreadsheet_service = new \Google_Service_Sheets($client);
             $range = "Sheet{$i}!B1:M60";
             $body = new \Google_Service_Sheets_ValueRange([
                 'values' => $values
@@ -35,22 +52,6 @@ class outputCsv
                 $params
             );
             $result->getUpdatedCells();
-
-            //シートを追加
-            $body = new \Google_Service_Sheets_BatchUpdateSpreadsheetRequest([
-                'requests' => [
-                    'addSheet' => [
-                        'properties' => [
-                            'title' => 'Sheet' . $i + 1
-                        ]
-                    ]
-                ]
-            ]);
-            $response = $spreadsheet_service->spreadsheets->batchUpdate($spreadsheet_id, $body);
-            $response->getReplies()[0]
-                ->getAddSheet()
-                ->getProperties()
-                ->sheetId;
         }
         return $spreadsheet_id;
     }
