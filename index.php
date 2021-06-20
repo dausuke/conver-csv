@@ -30,7 +30,7 @@
             <h1 class="col-12 text-center">CSV変換</h1>
         </header>
         <main class="row justify-content-center mt-5">
-            <form class="col-8" action="conver-csv/creatCsv/read.php" method="post" enctype="multipart/form-data">
+            <form class="col-8" action="creatCsv/read.php" method="post" enctype="multipart/form-data">
                 <div class="form-group d-flex justify-content-center align-items-center flex-column">
                     <label for="formGroupFileInput" class=" d-flex justify-content-center align-items-center flex-column border-secondary rounded  p-5 m-0 h-100 w-100">
                     <div class="border">

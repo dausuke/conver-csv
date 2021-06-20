@@ -51,7 +51,6 @@ class outputCsv
                 ->getAddSheet()
                 ->getProperties()
                 ->sheetId;
-            //echo ($new_sheet_id);
         }
         return $spreadsheet_id;
     }
@@ -79,5 +78,3 @@ class outputCsv
         return $csvArray;
     }
 }
-// $hoge = new outputCsv;
-// $hoge->output();
