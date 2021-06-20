@@ -300,7 +300,7 @@ if ($extension !== 'csv') {
     echo "
             <script>
                 alert('スプレッドシートへの変換が完了しました');
-                window.location.href = '../index.php';
+                window.location.href = '../../index.php';
             </script>
         ";
     // header('Location: index.php');
