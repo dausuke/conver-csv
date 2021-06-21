@@ -196,8 +196,6 @@ class readCsv extends calculate
         fclose($readCsv);
 
         $dailyData = parent::calculate($readData, 1);
-        // var_dump($dailyData);
-        // exit();
         return $dailyData;
     }
 }
@@ -287,7 +285,6 @@ class calculate
 }
 
 //送信チェックとスプレッド作成実行
-// if (!isset($_FILES['upcsv'])) {
 $extension = pathinfo($_FILES['upcsv']['name'], PATHINFO_EXTENSION);
 if ($extension !== 'csv') {
     exit('拡張子が無効です');
@@ -302,6 +299,4 @@ if ($extension !== 'csv') {
                 window.location.href = '../index.php';
             </script>
         ";
-    // header('Location: index.php');
 }
-//}

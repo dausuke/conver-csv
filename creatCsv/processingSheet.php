@@ -2,10 +2,8 @@
 
 namespace processing;
 
-require_once 'creat.php';
 require_once 'output.php';
 
-use creat\creatSheet;
 use output\outputCsv;
 
 class processingCsv
@@ -16,36 +14,13 @@ class processingCsv
     //インスタンスの初期化とシートを作成
     public function init()
     {
-        // $spreadSheet = new creatSheet;
         $outputSheet = new outputCsv;
         list($spreadsheet_id, $client)  = $outputSheet->output();
         $spreadsheet_service = new \Google_Service_Sheets($client);
 
         $this->spreadsheet_id = $spreadsheet_id;
         $this->spreadsheet_service = $spreadsheet_service;
-        // return [$spreadsheet_id, $spreadsheet_service];
     }
-    //スプレッド名の変更とシートとセルの調整
-    // public function changeSpreadName()
-    // {
-    //     $request_data = [
-    //         'updateSpreadsheetProperties' => [
-    //             'properties' => [
-    //                 'title' => $month . '_PayPay取引データ'
-    //             ],
-    //             'fields' => 'title'
-    //         ],
-    //     ];
-
-    //     $requests = [new \Google_Service_Sheets_Request($request_data)];
-    //     $batchUpdateRequest = new \Google_Service_Sheets_BatchUpdateSpreadsheetRequest([
-    //         'requests' => $requests
-    //     ]);
-    //     $response = $spreadsheet_service->spreadsheets->batchUpdate($spreadsheet_id, $batchUpdateRequest);
-    //     $response->getReplies();
-    //     $this->changeSheetName();
-
-    // }
     //シート名の変更
     public function changeSheetName()
     {
@@ -188,5 +163,3 @@ class processingCsv
         }
     }
 }
-// $hoge = new processing;
-// $hoge->changeSpreadName();

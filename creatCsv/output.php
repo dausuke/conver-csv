@@ -2,10 +2,9 @@
 
 namespace output;
 
-require_once 'creat.php';
+require __DIR__ . '/vendor/autoload.php';
 require_once 'read.php';
 
-use creat\creatSheet;
 use read\readCsv;
 
 class outputCsv
