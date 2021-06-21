@@ -10,23 +10,38 @@ use read\readCsv;
 
 class outputCsv
 {
+    //スプレッドシート設定
+    public function sheetConfig()
+    {
+        $credentials_path = 'sereal-traction-ddac26584e73.json';
+        $client = new \Google_Client();
+
+        $client->setScopes([
+            \Google_Service_Sheets::SPREADSHEETS, // スプレッドシート
+            \Google_Service_Sheets::DRIVE, // ドライブ
+        ]);
+        $client->setAuthConfig($credentials_path);
+        return $client;
+    }
+
     public function output()
     {
-        $spreadsheet = new creatSheet;
+        $client = $this->sheetConfig();
+        //$spreadsheet = new creatSheet;
 
         //スプレッド作成実行
-        $spreadsheet_id = $spreadsheet->creat();
-        $client = $spreadsheet->sheetConfig();
+        $spreadsheet_id = '1DWEeUcCBPJJgH-rt72lPbU6nMJNmsLN_oxxY1BLUi4E';
+        //$client = $spreadsheet->sheetConfig();
 
         $spreadsheet_service = new \Google_Service_Sheets($client);
 
-        //シートを追加
-        for ($i = 2; $i < 4; $i++) {
+        for ($i = 1; $i < 4; $i++) {
+            //シートを追加
             $body = new \Google_Service_Sheets_BatchUpdateSpreadsheetRequest([
                 'requests' => [
                     'addSheet' => [
                         'properties' => [
-                            'title' => 'Sheet' . $i
+                            'title' => 'シート' . $i
                         ]
                     ]
                 ]
@@ -35,11 +50,10 @@ class outputCsv
             $response->getReplies()[0]
                 ->getAddSheet()
                 ->getProperties();
-        }
-        //シート書き込み
-        for ($i = 1; $i < 4; $i++) {
+
+            //シート書き込み
             $values = $this->toArrayCsvData($i);
-            $range = "Sheet{$i}!B1:M60";
+            $range = "シート{$i}!B1:M60";
             $body = new \Google_Service_Sheets_ValueRange([
                 'values' => $values
             ]);
@@ -53,7 +67,7 @@ class outputCsv
             );
             $result->getUpdatedCells();
         }
-        return $spreadsheet_id;
+        return [$spreadsheet_id, $client];
     }
 
     //csvデータ読み取り実行

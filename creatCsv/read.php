@@ -4,7 +4,6 @@ namespace read;
 
 require_once 'processingSheet.php';
 
-use Google\Service\AIPlatformNotebooks\Location;
 use processing\processingCsv;
 
 ini_set('display_errors', 1);
@@ -296,7 +295,7 @@ if ($extension !== 'csv') {
     $execution = new processingCsv;
     $self = new readCsv;
     $self->saveFile();
-    $execution->changeSpreadName();
+    $execution->changeSheetName();
     echo "
             <script>
                 alert('スプレッドシートへの変換が完了しました');
